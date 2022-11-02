@@ -1,9 +1,14 @@
 #dedupe.py
 import hashlib as hash
 
-def hash(hashString:str) -> str:
-  return hashlib.sha256(hashString.encode("utf-8")).hexdigest()
+def hashStr(potato:str) -> str:
+  return hashlib.sha256(potato.encode("utf-8")).hexdigest()
+def hashImage(potato):
+    with open(potato, "rb") as potato:
+        hashedPotato = hashlib.sha256(potato.read()).hexdigest()
+    return hashedPotato
 
+    return hashlib.sha256.hexdigest()
 def getFiles(dir,num=False,recursive=False,verbose=True):
     if recursive == False:
         string = f"Starting getFiles on target directory {dir}, with args num={num},recursive={recursive},verbose={verbose}"
@@ -51,3 +56,11 @@ def getFiles(dir,num=False,recursive=False,verbose=True):
 
 def dedupeDir(path:str):
   """Removes duplicate files from a given directory"""
+  files = getFiles(path,verbose=False)
+  byteFiles = []
+  for path in files:
+    if os.path.isfile(path):
+        with open(path,"rb") as f:
+            byteFiles.append(f.read())
+  for file in byteFiles:
+    byte
